@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#071f18">
+<title>Blind Bid — High stakes. Hidden bids.</title>
+<style>
+:root{color-scheme:dark;--bg:#071f18;--panel:#0d3025;--panel2:#123d2f;--gold:#e9c66b;--gold2:#b88a2b;--text:#f7f3e8;--muted:#b5c7bd;--red:#ff8c80;--green:#75dfaa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#164532 0,#071f18 55%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+button,input{font:inherit}button{cursor:pointer;min-height:48px;border:0;border-radius:12px;padding:12px 18px;font-weight:800;transition:transform .12s,filter .12s}button:active{transform:scale(.98)}button:disabled{opacity:.45;cursor:not-allowed}
+.primary{background:linear-gradient(135deg,#f5d982,#c49a3d);color:#1d2416;box-shadow:0 5px 18px #0003}.secondary{background:#174535;border:1px solid #356b52;color:var(--text)}.ghost{background:transparent;border:1px solid #426b59;color:var(--muted)}
+input{width:100%;min-height:48px;background:#061a14;border:1px solid #39634f;border-radius:12px;color:var(--text);padding:12px 14px;outline:none}input:focus{border-color:var(--gold);box-shadow:0 0 0 3px #e9c66b22}
+.app{max-width:980px;margin:auto;padding:18px 16px 40px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:24px}.brand{display:flex;align-items:center;gap:11px;font-weight:950;letter-spacing:.04em;font-size:20px}.logo{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,#f5d982,#b88a2b);color:#173126;font-size:22px}.tag{font-size:11px;letter-spacing:.18em;color:var(--gold);text-transform:uppercase}.how{padding:10px 13px;min-height:42px}.screen{max-width:720px;margin:0 auto}.panel{background:linear-gradient(160deg,#103729f2,#0a271ff2);border:1px solid #2c5a45;border-radius:22px;padding:clamp(18px,4vw,30px);box-shadow:0 18px 50px #0003}.hero{text-align:center;padding:24px 0 20px}.hero h1{font-size:clamp(36px,8vw,64px);line-height:1;margin:10px 0 12px;letter-spacing:-.05em}.hero h1 span{color:var(--gold)}.sub{color:var(--muted);line-height:1.6}.form{display:grid;gap:12px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.section-title{margin:0 0 18px;font-size:24px}.muted{color:var(--muted)}.row{display:flex;align-items:center;justify-content:space-between;gap:12px}.code{font-size:32px;letter-spacing:.28em;font-weight:950;color:var(--gold);background:#061a14;border:1px dashed #b88a2b;border-radius:14px;padding:14px;text-align:center}.players{display:grid;gap:9px;margin:18px 0}.player{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border-radius:12px;background:#143c2e;border:1px solid #285540}.pill{font-size:12px;border-radius:999px;padding:5px 9px;background:#204f3a;color:#d9e9df}.pill.gold{background:#59451d;color:#ffe5a0}.status{color:var(--green);font-size:13px}.notice{padding:12px 14px;border-radius:12px;background:#43251f;border:1px solid #81483c;color:#ffd1c8;margin:12px 0}.hidden{display:none!important}.gamehead{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:18px}.stat{padding:10px 14px;background:#061a14;border:1px solid #2b5a43;border-radius:12px;text-align:center;min-width:95px}.stat b{display:block;font-size:22px;color:var(--gold)}.prize-wrap{text-align:center;padding:12px 0 22px}.prize-card{margin:0 auto 18px;width:150px;height:190px;perspective:900px}.card-inner{position:relative;width:100%;height:100%;transition:transform .7s;transform-style:preserve-3d}.flipped .card-inner{transform:rotateY(180deg)}.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:18px;border:2px solid var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(145deg,#174b36,#08251b);box-shadow:0 12px 30px #0005}.face.back{transform:rotateY(180deg);background:linear-gradient(145deg,#f5d982,#b88a2b);color:#1b2a1e}.card-mark{font-size:38px}.card-value{font-size:58px;font-weight:950}.label{color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:.12em}.timer{font-size:34px;font-weight:950;color:var(--gold)}.bid-form{display:flex;gap:10px;max-width:390px;margin:0 auto}.bid-form input{min-width:0;text-align:center;font-size:22px;font-weight:800}.bid-form button{white-space:nowrap}.bid-list{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:16px 0}.scoreboard{display:grid;gap:8px;margin:18px 0}.score{display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:center;padding:12px;background:#143c2e;border-radius:12px}.score.winner{border:1px solid var(--gold);background:#3b351d}.score b{font-size:18px}.big-result{text-align:center;padding:16px;border:1px solid #735b24;background:#3a321b;border-radius:14px;color:#ffe6a0;line-height:1.5}.footer{text-align:center;margin-top:24px;color:#7e9b8b;font-size:12px}.how-modal{position:fixed;inset:0;background:#000a;display:grid;place-items:center;padding:16px;z-index:10}.how-content{width:min(560px,100%);max-height:85vh;overflow:auto}.how-content li{margin:10px 0;color:#d7e4dc;line-height:1.5}.spinner{width:24px;height:24px;border:3px solid #ffffff33;border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;display:inline-block;vertical-align:middle;margin-right:8px}@keyframes spin{to{transform:rotate(360deg)}}@media(max-width:480px){.actions{grid-template-columns:1fr}.topbar{align-items:flex-start}.brand{font-size:17px}.gamehead{align-items:stretch}.stat{flex:1;min-width:0}.prize-card{width:125px;height:160px}.score{grid-template-columns:1fr auto auto;gap:8px;padding:10px}.panel{border-radius:18px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand"><div class="logo">♠</div><div>BLIND BID<div class="tag">High stakes. Hidden bids.</div></div></div>
+    <button class="ghost how" id="howBtn">How to play</button>
+  </header>
+  <main id="appRoot" class="screen">
+    <section class="panel hero">
+      <div class="spinner"></div><div>Connecting to server…</div>
+      <p class="sub">Getting the table ready.</p>
+    </section>
+  </main>
+  <div class="footer">A game of nerve, timing, and hidden bids.</div>
+</div>
+<div id="howModal" class="how-modal hidden" role="dialog" aria-modal="true" aria-labelledby="howTitle">
+  <div class="panel how-content"><div class="row"><h2 id="howTitle">How to play</h2><button class="ghost" id="closeHow" aria-label="Close">✕</button></div>
+    <ol>
+      <li>Create a room and share its 4-letter code. 2–6 players can join before the host starts.</li>
+      <li>Everyone starts with 100 coins. There are 8 prize cards, shuffled each game.</li>
+      <li>Each round, secretly bid any whole number from 0 up to your remaining coins. You have 20 seconds. No bid means 0.</li>
+      <li>All bids are revealed together. The unique highest positive bid wins the prize points and pays their bid.</li>
+      <li>If the highest bids tie, nobody wins and those prize points carry to the next round. A zero bid never wins.</li>
+      <li>After 8 rounds, most points wins. Ties in points are broken by the most coins left.</li>
+      <li>Refresh to reconnect using this browser's saved session. The server is the authority on bids, coins, and scores.</li>
+    </ol><button class="primary" id="gotIt" style="width:100%">Got it</button>
+  </div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+(() => {
+  const root = document.getElementById("appRoot");
+  const socket = io({ reconnection: true, reconnectionAttempts: Infinity, timeout: 10000 });
+  const howModal = document.getElementById("howModal");
+  let state = null, notice = "", connected = false, countdownTimer = null;
+  let saved = null;
+  try { saved = JSON.parse(localStorage.getItem("blindBidSession") || "null"); } catch {}
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const showNotice = msg => { notice = msg; render(); };
+  document.getElementById("howBtn").onclick = () => howModal.classList.remove("hidden");
+  document.getElementById("closeHow").onclick = document.getElementById("gotIt").onclick = () => howModal.classList.add("hidden");
+  howModal.addEventListener("click", e => { if (e.target === howModal) howModal.classList.add("hidden"); });
+  socket.on("connect", () => {
+    connected = true;
+    if (saved && saved.code && saved.token) socket.emit("reconnect-player", saved);
+    render();
+  });
+  socket.on("disconnect", () => { connected = false; render(); });
+  socket.on("connect_error", () => { connected = false; render(); });
+  socket.on("joined", data => {
+    saved = { code:data.code, token:data.token };
+    localStorage.setItem("blindBidSession", JSON.stringify(saved));
+    notice = "";
+  });
+  socket.on("state", s => { state = s; notice = ""; render(); });
+  socket.on("notice", n => showNotice(n.message || "Something went wrong."));
+  function noticeHtml(){ return notice ? `<div class="notice" role="alert">${esc(notice)}</div>` : ""; }
+  function header(title, right=""){ return `<div class="row" style="margin-bottom:18px"><h2 class="section-title">${title}</h2>${right}</div>`; }
+  function render(){
+    if (!connected) {
+      root.innerHTML = `<section class="panel hero"><div class="spinner"></div><h2>Connecting to server…</h2><p class="sub">The server may be waking up. This page will reconnect automatically.</p>${noticeHtml()}</section>`;
+      return;
+    }
+    if (!state) {
+      root.innerHTML = `<section class="panel"><div class="hero"><div class="tag">Welcome to the table</div><h1>BLIND <span>BID</span></h1><p class="sub">Eight prizes. One hundred coins. Every bid is a secret.</p></div>${noticeHtml()}<form id="homeForm" class="form"><label>Your name<input id="name" maxlength="18" required autocomplete="nickname" placeholder="Enter a game name"></label><div class="actions"><button class="primary" type="button" id="create">Create a room</button><button class="secondary" type="button" id="toggleJoin">Join a room</button></div><div id="joinBox" class="form hidden"><label>4-letter room code<input id="code" maxlength="4" autocomplete="off" placeholder="ABCD" style="text-transform:uppercase;letter-spacing:.2em"></label><button class="primary" type="button" id="join">Join table</button></div></form><p class="sub" style="text-align:center;font-size:13px">2–6 players · No account needed · 20 seconds per bid</p></section>`;
+      document.getElementById("toggleJoin").onclick = () => document.getElementById("joinBox").classList.toggle("hidden");
+      document.getElementById("create").onclick = () => { const name = document.getElementById("name").value.trim(); if (!name) return showNotice("Enter your name first."); localStorage.removeItem("blindBidSession"); saved=null; socket.emit("create-room",{name}); };
+      document.getElementById("join").onclick = () => { const name = document.getElementById("name").value.trim(), code=document.getElementById("code").value.trim().toUpperCase(); if(!name) return showNotice("Enter your name first."); if(code.length!==4) return showNotice("Enter the 4-letter room code."); localStorage.removeItem("blindBidSession"); saved=null; socket.emit("join-room",{name,code}); };
+      document.getElementById("code").addEventListener("input", e => e.target.value=e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,"").slice(0,4));
+      return;
+    }
+    if (state.phase === "lobby") {
+      root.innerHTML = `<section class="panel">${header("Waiting room", `<span class="pill">${state.players.length}/6 players</span>`)}<p class="muted">Share this code with your friends.</p><div class="code">${esc(state.code)}</div><div class="players">${state.players.map(p=>`<div class="player"><div><b>${esc(p.name)}</b>${p.isHost?` <span class="pill gold">HOST</span>`:""}<div class="status">${p.connected?"Connected":"Reconnecting…"}</div></div><span class="pill">100 coins</span></div>`).join("")}</div>${noticeHtml()}<p class="sub">Need at least 2 players to start. New players can join until the game begins.</p>${state.me?.isHost?`<button class="primary" id="start" style="width:100%" ${state.players.length<2?"disabled":""}>Start game</button>`:`<div class="big-result">Waiting for ${esc(state.players.find(p=>p.isHost)?.name||"the host")} to start…</div>`}</section>`;
+      const start = document.getElementById("start"); if(start) start.onclick=()=>socket.emit("start-game");
+      return;
+    }
+    if (state.phase === "bidding") {
+      const left = Math.max(0, Math.ceil((state.deadline-Date.now())/1000));
+      const meHasBid = state.me && state.me.hasBid;
+      root.innerHTML = `<section class="panel"><div class="gamehead"><div class="stat"><span class="label">Round</span><b>${state.round}/8</b></div><div class="stat"><span class="label">Your coins</span><b>${state.me.coins}</b></div><div class="stat"><span class="label">Your points</span><b>${state.me.points}</b></div></div><div class="prize-wrap"><div class="prize-card"><div class="card-inner"><div class="face"><div class="card-mark">♠</div><div class="label">Prize</div><div class="card-mark">?</div></div><div class="face back"><div class="label">Prize points</div><div class="card-value">${state.prize}</div><div class="card-mark">✦</div></div></div></div><div class="label">Current prize</div><h2 style="margin:6px 0">Bid in secret</h2><div class="timer" id="timer">${left}s</div>${state.prizePool?`<p class="muted">Includes ${state.prizePool} carried-over points</p>`:""}</div>${noticeHtml()}${meHasBid?`<div class="big-result">Your bid is locked. Waiting for everyone else…</div>`:`<form id="bidForm" class="bid-form"><input type="number" id="bid" min="0" max="${state.me.coins}" step="1" required inputmode="numeric" placeholder="0–${state.me.coins}" aria-label="Your bid"><button class="primary">Lock bid</button></form>`}<div class="bid-list">${state.players.map(p=>`<span class="pill ${p.hasBid?"gold":""}">${esc(p.name)} · ${p.hasBid?"Has bid":"Thinking…"}</span>`).join("")}</div><p class="sub" style="text-align:center">Bids stay hidden until everyone has bid or time runs out.</p></section>`;
+      const form = document.getElementById("bidForm"); if(form) form.onsubmit=e=>{e.preventDefault(); const input=document.getElementById("bid"), bid=Number(input.value); if(!Number.isInteger(bid)||bid<0||bid>state.me.coins) return showNotice(`Enter a whole number from 0 to ${state.me.coins}.`); socket.emit("submit-bid",{bid}); };
+      clearInterval(countdownTimer); countdownTimer=setInterval(()=>{ const el=document.getElementById("timer"); if(!el||!state||state.phase!=="bidding")return; const n=Math.max(0,Math.ceil((state.deadline-Date.now())/1000)); el.textContent=n+"s"; },250);
+      return;
+    }
+    clearInterval(countdownTimer);
+    if (state.phase === "reveal") {
+      const finished = state.round >= 8;
+      root.innerHTML = `<section class="panel">${header(`Round ${state.round} reveal`, `<span class="pill gold">${state.prize} prize points</span>`)}<div class="prize-wrap"><div class="prize-card flipped"><div class="card-inner"><div class="face"><div class="card-mark">♠</div><div class="label">Prize</div><div class="card-mark">?</div></div><div class="face back"><div class="label">Prize points</div><div class="card-value">${state.prize}</div><div class="card-mark">✦</div></div></div></div></div><div class="big-result">${esc(state.lastResult?.message||"Bids revealed.")}</div><div class="scoreboard">${state.bids.map(p=>`<div class="score ${p.id===state.winnerId?"winner":""}"><div><b>${esc(p.name)}</b>${p.id===state.winnerId?` <span class="pill gold">WINNER</span>`:""}</div><div><span class="label">Bid</span><br><b>${p.bid}</b></div><div><span class="label">Points</span><br><b>${p.points}</b></div></div>`).join("")}</div><p class="sub">Coins remaining: ${state.players.map(p=>`${esc(p.name)} ${p.coins}`).join(" · ")}</p>${state.me?.isHost?`<button class="primary" id="next" style="width:100%">${finished?"Show final ranking":"Next round"}</button>`:`<div class="big-result">Waiting for the host to continue…</div>`}</section>`;
+      const next=document.getElementById("next"); if(next) next.onclick=()=>socket.emit("next-round");
+      return;
+    }
+    if (state.phase === "over") {
+      root.innerHTML = `<section class="panel">${header("Game over", `<span class="pill gold">8 rounds complete</span>`)}<div class="hero"><div class="card-mark">🏆</div><h1 style="font-size:42px">Final <span>ranking</span></h1><p class="sub">Most points wins. Coins break a tie.</p></div><div class="scoreboard">${state.ranking.map(p=>`<div class="score ${p.rank===1?"winner":""}"><div><b>${p.rank===1?"🥇 ":p.rank===2?"🥈 ":p.rank===3?"🥉 ":""}${esc(p.name)}</b></div><div><span class="label">Points</span><br><b>${p.points}</b></div><div><span class="label">Coins</span><br><b>${p.coins}</b></div></div>`).join("")}</div>${state.me?.isHost?`<button class="primary" id="again" style="width:100%">Play again</button>`:`<div class="big-result">Waiting for the host to start a rematch…</div>`}</section>`;
+      const again=document.getElementById("again"); if(again) again.onclick=()=>socket.emit("play-again");
+    }
+  }
+  render();
+})();
+</script>
+</body>
+</html>
